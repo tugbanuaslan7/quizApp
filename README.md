@@ -242,3 +242,97 @@ That's not the final look I want to have. Instead, I wanna make sure that we tak
 ![alt text](images/image-42.png) 
 ![alt text](images/image-43.png) 
 ![alt text](images/image-44.png) 
+
+## Accessing List Elements & Object Properties
+
+![alt text](images/image-45.png)   
+![alt text](images/image-46.png) 
+
+with this solution, I manually created all these answer buttons, which is a lot of unnecessary code duplication.
+
+## Mapping Lists & Using the Spread Operator
+
+The goal now is to generate these answer buttons dynamically based on the actual amount of answers that we have for the current question.
+
+![alt text](images/image-47.png)   
+a List inside a List  
+![alt text](images/image-48.png)   
+children is a list of widgets, like text and size box, but also a list that containns other lists as values. And simply not what children wants. It wants just widgets as values inside this list, not other lists. So converting our answers to answer buttons is not enough if they are still in a list thereafter. Instead, what we have to do here is something called spreading. We have to spread this or this iterable, which is generated my map, into a couple of individual values. And taht's done myy adding three dots in front of that. Which is built- in operator.  
+There three dots will simply take all the values in a list or an iterable and pull them out of the list, pull them out of the iterable, and instead place them as comma-separated values in this place in code here.
+
+![alt text](images/image-49.png)   
+Now these answer buttons in the list of answer buttons here are pulled out, and added as individual comma-separated answer buttons to this list here, which is set as a value children.  
+So that overall here we get a list of widgets.
+
+![alt text](images/image-50.png)  
+We have all these answers like before, but now they're dynamically generated.
+
+## Aligment, Margin & Padding
+
+There are three things I wanna change regarding these answers. These answer buttons take up all the available space, leaving some empty to the left and right. In addition, I wanna shuffle them because it's first answer that is the correct one. And third, I wanna make sure that when we tap those answers, we proceed to the next question or after going through all questions to the result screen.
+
+![alt text](images/image-51.png) 
+![alt text](images/image-52.png) 
+
+## Mutating Values in Memory
+
+So how can we shuffle these list items here?  
+Flutter gives us a shuflle method that can be called on lists. It is a built-in method that can be called on lists to change the orde of the items in the lists. However, what's important to understand regarding Shuffle, is that unlike map, it does change the original list.  
+I actually don't wanna change this list of answers, I wanna make sure that the correct answer stays the first answer here and therefore we have to first copy this list before we shuffle it, otherwise, finding out which answer was the correct answer will be impossible after these answers have been shuffled. So therefore, to make sure that we're shuffling the answers in a brand new list, we can go to this QuizQuestion class, which we added earlier which is our blueprint for these questions. 
+
+![alt text](images/image-53.png) 
+![alt text](images/image-54.png)   
+we can now use these getShuffledAnswers, we can use here and then map those shuffled answers to our answers buttons.  
+we do all these things withoutt changing the original answers list.  
+
+![alt text](images/image-55.png)  
+You'll see that now I have a different order than I did before.  
+
+## Managing The Questions Index As State
+
+Now with those shuffled answer being displayed here, it's time to make sure that once we select an answer, we move on the next answer in line.
+
+![alt text](images/image-56.png)  
+![alt text](images/image-57.png) 
+![alt text](images/image-58.png)
+![alt text](images/image-59.png) 
+![alt text](images/image-60.png)
+![alt text](images/image-61.png) 
+![alt text](images/image-62.png)
+![alt text](images/image-63.png) 
+![alt text](images/image-64.png)
+
+At some point we'll reach an error here because at some point we try to move on to a question that doesn't exist because we never stop increaming currentQuestionIndex.
+
+## More on Button Styling
+
+![alt text](images/image-65.png)  
+Some answers look quite ugly because the text is not centered. And I also wanna change how that question text here look like because I think it could out a bit more. 
+
+![alt text](images/image-66.png) 
+![alt text](images/image-67.png) 
+
+All texts are centered.
+
+## Using Third-Party Packages & Adding Google Fonts
+
+Next goal is to adjust the styling of question text.  
+
+```
+flutter pub add google_fonts
+```
+This command will install this package into this project. And as part of this installation process, it will also add in the pubspec.yaml file.
+
+![alt text](images/image-68.png) 
+
+![alt text](images/image-69.png) 
+
+![alt text](images/image-70.png) 
+
+You now see taht the question text look differently, that a different font is used and that it's a bit bigger.
+
+![alt text](images/image-71.png) 
+
+![alt text](images/image-72.png) 
+
+We could also do it on the start screen.
