@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiz_app/models/answer_button.dart';
+import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
+  const QuestionScreen({super.key, required this.onSelectAnswer, });
+
+  final void Function(String answer) onSelectAnswer;
 
   @override
   State<QuestionScreen> createState() {
@@ -17,11 +18,11 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   var currenQuestionIndex = 0;
 
-  void answerQuestion () {
-    // currenQuestionIndex = currenQuestionIndex + 1;
-    // currenQuestionIndex += 1;
+  // answer butonlarından birine basıldığında çalıştırılır
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);  // onSelectAnswer QuestionScreen içinde olduğu için State sınıfı içinde widget anahtar sözcüğü ile kullanabilirim
     setState(() { // setState fonksiyonu, flutter'a build metodunun tekrar çalışması gerektiğini söyler
-      currenQuestionIndex++;
+      currenQuestionIndex++; // sorular bitene kadar bu soru indeksini artırmaya devam etmedğimizden emin olmamız gereken yer burası
     });
   }
   
@@ -35,8 +36,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch, // tüm sütun genişliğini doldurur
+          crossAxisAlignment : CrossAxisAlignment.stretch, // tüm sütun genişliğini doldurur
           children: [
             Text(
               currentQuestion.text,
@@ -49,7 +49,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ),
             const SizedBox(height: 30),
             ...currentQuestion.getShuffledAnswers().map((answer) {
-              return AnswerButton(answerText: answer, onTap: answerQuestion); // answers listesini answer buttons listesine dönüştürdük
+              return AnswerButton(
+                answerText: answer, 
+                onTap: () {
+                  answerQuestion(answer);
+                },
+              );
             })
           ],
         ),

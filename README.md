@@ -29,6 +29,7 @@ Now this indeed does take up the entire screen.
 ![alt text](images/image-8.png) 
 
 ## Adding Icons to Buttons
+
 Flutter gives you the Icon widget which can also be used outside of that icon button. Icon is a regular widget provided by Flutter and you can use it anywhere else where widgets can be used.
 
 ![alt text](images/image-9.png) 
@@ -336,3 +337,154 @@ You now see taht the question text look differently, that a different font is us
 ![alt text](images/image-72.png) 
 
 We could also do it on the start screen.
+
+## Passing Data via Functions Across Widgets
+
+It's now time to make sure that as we navigate through these questions, we also save the answers that were chosen by the user so that we can then later use them on the result screen. And we should make sure that we stop once we run out of questions so that we don't see error.  
+So therefore we have two main things to do. We must store the selected answers and we must make sure that we show a different screen once we went through all the answers.
+
+![alt text](images/image-74.png) 
+![alt text](images/image-75.png) 
+![alt text](images/image-73.jpg) 
+
+## More Conditions
+
+![alt text](images/image-76.png)
+
+## Getting Started with the Results Screen
+ 
+It's time to add a results screen. The goal with this screen is to simply show a summary of all the questions that have been answered. The user should see how many questions have been answered correctly, and then they should simply see a list of all those questions with a clear indicator that shows whether a question has been answered correctly or not and with the correct answer next to the answer that has been chosen by the user. This list of questions here also should be scrollable since it shouldn't occupy the entire screen. But instead, it should be placed between this summary statistics title and a button that can be used to restart the quiz.
+
+![alt text](images/image-77.png)
+![alt text](images/image-78.png)
+![alt text](images/image-79.png)
+
+## Passing Data to the Results Screen
+
+It's now time to make sure that we pass our selected answers to results screen widget so that in there we can use them to show some results on the screen. 
+
+![alt text](images/image-80.png)
+![alt text](images/image-81.png)
+
+## Introducing Map & "for" Loops
+
+Maps are collections of key/value pairs
+
+```
+var user = {
+  'user name': 'Tuğba',
+  'password': 'supersecret',
+  'age': 22,
+};
+```
+
+The key and values can be an type of value (the keys often are Strings but don't have to be)  
+Values can be accessed (read or modified) via [] ( user['age' = 22;] )  
+Maps, like Lists, offer many built-in methods & properties (e.g., user.containsKey('age'))  
+
+![alt text](images/image-82.png)
+
+## Using "for" Loops In Lists
+
+Just as you can also use the ```if``` keyword inside of lists (to add elements conditionally), you can also use the ```for``` keyword to add multiple items into a list:
+
+```
+final numbers = [5, 6];
+final myList = [
+  1,
+  2,
+  for (final num in numbers)
+    num
+];
+```
+
+In this example, the numbers ```5``` and ```6``` will be added to ```myList``` (hence ```myList``` thereafter is [1, 2, 5, 6]).
+
+This ```for ... in``` syntax is a special variation of the ```for``` loop that loops through multiple items in a list. 
+
+The idea behind this loop is to simplify the process of performing some operation on all items in a list.
+
+When used in a list, it's essentially an alternative to the spread operator (```...```):
+
+```
+final numbers = [5, 6];
+final myList = [
+  1,
+  2,
+  ...numbers
+];
+```
+
+It can be useful in scenarios where values must be transformed before being added to a list - the ```for ... in``` loop can then be used instead of ```map()``` + spread operator:
+
+```
+final numbers = [5, 6];
+final myList = [
+  1,
+  2,
+  ...numbers.map((n) {
+    return n * 2; 
+  }) // adds 10 and 12
+];
+```
+
+can be replaced with:
+
+```
+final numbers = [5, 6];
+final myList = [
+  1,
+  2,
+  for (final num in numbers)
+    num * 2 // adds 10 and 12
+];
+```
+
+## Accessing Map Values & Using "Type Casting"
+
+In every row I wanna display the question index, some indicator that shows us whether question was answered correctly or not. And I wanna display the question, the correct answer, and user answer. We could do this all in results screen widget but this widget tree would get rather big and complex. And for that reason I'll add a new file which I'll name questions_summary.dart.
+
+![alt text](images/image-83.png)
+
+## Combining Columns & Rows
+
+![alt text](images/image-84.png)
+![alt text](images/image-85.png)  
+![alt text](images/image-86.png)   
+
+We got no list here.
+
+![alt text](images/image-87.png)
+
+``` selectedAnswe = []; ``` code should be removed
+
+![alt text](images/image-88.png)
+
+It's ugly and it's broken.
+
+## Expanded To The Rescue!
+
+![alt text](images/image-89.png)  
+![alt text](images/image-90.png)   
+
+The name, expanded here might sound like the child which it takes all the space that it can get. And to some extent it does. But it's actually better than what we had before. Because without expanded, column actually takes an infinite amount of width,evet if that goes beyond the screen boundaries. After wrapping it with expanded, this changes because expanded basically allows its child to take the available space along the flex widgets main axis.
+
+## Filtering & Analyzing Lists
+
+![alt text](images/image-91.png)  
+![alt text](images/image-92.png)   
+
+## Making Content Scrollable with SingleChildScrollView
+
+![alt text](images/image-93.png)   
+
+# FINALLY
+
+![alt text](images/image-94.png)
+![alt text](images/image-95.png)
+![alt text](images/image-96.png)
+![alt text](images/image-97.png)
+![alt text](images/image-98.png)
+![alt text](images/image-99.png)
+![alt text](images/image-100.png)
+![alt text](images/image-101.png)
